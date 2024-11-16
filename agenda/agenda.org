@@ -1,0 +1,25 @@
+
+#+TITLE: Thesis References
+#+AUTHOR: Chris Liourtas
+
+* Arduino [2/4]
+- [X] <2024-11-06 Wed> [[https://deepbluembedded.com/arduino-port-manipulation-registers-example/?utm_content=cmp-true][Port manipulation on Arduino uno]]
+- [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/tutorials/uno-wifi-rev2/uno-wifi-r2-mqtt-device-to-device/][Arduino Uno with MQTT]]   
+- [X] <2024-11-06 Wed> [[https://electronoobs.com/eng_arduino_tut12.php][More on port manipulation]]
+- [ ] <2024-11-16 Sat> [[https://thingsboard.io/docs/samples/arduino/temperature/][Arduino temperature example with MQTT]] 
+* Embedded [1/1]
+- [X] <2024-11-06 Wed> [[https://herndlbauer.com/blog/arduino-uno-bare-metal-programming/][Baremetal on arduino uno]]
+* Rust [1/2]
+- [X] <2024-11-06 Wed> [[https://blog.logrocket.com/complete-guide-running-rust-arduino/][Running rust on arduino]]
+* C++ (Wiring) [/]
+* Other [/]
+* Agenda [0/3]
+** TODO [#A] Write thesis proposal 
+DEADLINE: <2024-11-23 Sat> 
+** TODO [#B] Create thesis bibliography
+DEADLINE: <2024-11-23 Sat> 
+** TODO [#C] Create cover for the thesis
+DEADLINE: <2024-11-23 Sat> 
+* Thesis Stages [0%]
+* Questions [/]
+

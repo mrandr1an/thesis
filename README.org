@@ -1,0 +1,19 @@
+#+TITLE: Thesis
+#+AUTHOR: Chris Liourtas
+
+* IoT data visualization methods for autonomous devices using MQTT
+This is the repositoty where I keep all of my relevant notes,code and references for my thesis. The whole
+project is managed using emacs and org-mode.
+
+* Directories
+** Notes
+The notes directory contains copies of my org-roam notes related to this thesis.
+** Rust
+Implementations of relevant code in rust.
+** Wiring
+Implementations of relevant code in C++ with the Arduino framework using PlatformIO.
+** [[file:agenda/agenda.org][Agenda]]
+Collection of references with relevant timestamps and org states (TODOs, etc).
+** Write
+Segments of the thesis that are meant to be into the final paper.
+
