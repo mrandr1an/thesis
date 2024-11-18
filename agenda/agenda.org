@@ -2,11 +2,13 @@
 #+TITLE: Thesis References
 #+AUTHOR: Chris Liourtas
 
-* Arduino [2/4]
+* Arduino/Other AVR [4/6]
 - [X] <2024-11-06 Wed> [[https://deepbluembedded.com/arduino-port-manipulation-registers-example/?utm_content=cmp-true][Port manipulation on Arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/tutorials/uno-wifi-rev2/uno-wifi-r2-mqtt-device-to-device/][Arduino Uno with MQTT]]   
 - [X] <2024-11-06 Wed> [[https://electronoobs.com/eng_arduino_tut12.php][More on port manipulation]]
+- [X] <2024-11-17 Sun> [[https://cgrant.medium.com/using-the-esp8266-wifi-module-with-arduino-uno-publishing-to-thingspeak-99fc77122e82][Using Uno and ESP8266 to connect to ThingSpeak]] 
 - [ ] <2024-11-16 Sat> [[https://thingsboard.io/docs/samples/arduino/temperature/][Arduino temperature example with MQTT]]
+- [X] <2024-11-18 Mon> [[https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/#3][Connecting to WiFi on ESP32]] 
 * Embedded [1/2]
 - [X] <2024-11-06 Wed> [[https://herndlbauer.com/blog/arduino-uno-bare-metal-programming/][Baremetal on arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/learn/microcontrollers/analog-output/][Pulse Width Modulation]] 
@@ -23,4 +25,3 @@ DEADLINE: <2024-11-23 Sat>
 DEADLINE: <2024-11-23 Sat> 
 * Thesis Stages [0%]
 * Questions [/]
-
