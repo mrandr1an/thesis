@@ -16,4 +16,19 @@ Implementations of relevant code in C++ with the Arduino framework using Platfor
 Collection of references with relevant timestamps and org states (TODOs, etc).
 ** Write
 Segments of the thesis that are meant to be into the final paper.
-
+* Build & Run
+So far I have been using PlatformIO on a python virtual enviroment.
+For example to run esp32-wifi on terminal.
+#+begin_src bash
+  cd wiring/esp32-wifi/
+  source ./wiring/esp32/esp32_pio_venv/bin/activate
+  pio run
+#+end_src
+* Add new code
+** PlatformIO
+#+begin_src bash
+  python -m venv ./platformio_venv_example/
+  source ./platformio_venv_example/bin/activate/
+  pip install platformio
+  pio project init
+#+end_src
