@@ -33,7 +33,7 @@ For example to run esp32-wifi on terminal.
   pio project init
 #+end_src
 Example build configuration for esp32 with ThingsBoard library and its dependencies:
-#+begin_src toml
+#+begin_src ini
 [env:esp32dev]
 platform = espressif32
 board = esp32dev
