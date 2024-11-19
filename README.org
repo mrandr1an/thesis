@@ -32,3 +32,20 @@ For example to run esp32-wifi on terminal.
   pip install platformio
   pio project init
 #+end_src
+Example build configuration for esp32 with ThingsBoard library and its dependencies:
+#+begin_src toml
+[env:esp32dev]
+platform = espressif32
+board = esp32dev
+board_build.mcu = esp32
+board_build.f_cpu = 240000000L
+framework = arduino
+targets = upload, monitor
+monitor_speed = 115200
+lib_deps = Update
+           thingsboard/ThingsBoard@0.11.0
+	   bblanchon/ArduinoJson
+	   thingsboard/TBPubSubClient
+	   arduino-libraries/ArduinoHttpClient
+	   bblanchon/StreamUtils
+#+end_src
