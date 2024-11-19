@@ -28,7 +28,7 @@ For example to run esp32-wifi on terminal.
 ** PlatformIO
 #+begin_src bash
   python -m venv ./platformio_venv_example/
-  source ./platformio_venv_example/bin/activate/
+  source ./platformio_venv_example/bin/activate
   pip install platformio
   pio project init
 #+end_src
