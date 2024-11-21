@@ -55,6 +55,5 @@ flycheck_*.el
 .ccls
 .ccls-cache
 
-*mosquitto
-*thingsboard
-*pwfile
+mosquitto/
+thingsboard/
