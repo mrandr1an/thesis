@@ -10,6 +10,7 @@
 - [ ] <2024-11-16 Sat> [[https://thingsboard.io/docs/samples/arduino/temperature/][Arduino temperature example with MQTT]]
 - [X] <2024-11-18 Mon> [[https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/#3][Connecting to WiFi on ESP32]]
 - [ ] <2024-11-19 Tue> [[https://www.emqx.com/en/blog/esp32-connects-to-the-free-public-mqtt-broker][MQTT on ESP32]]
+- [ ] <2024-11-23 Sat> [[https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/][ESP32 WiFi]]
 * Embedded [1/2]
 - [X] <2024-11-06 Wed> [[https://herndlbauer.com/blog/arduino-uno-bare-metal-programming/][Baremetal on arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/learn/microcontrollers/analog-output/][Pulse Width Modulation]] 
