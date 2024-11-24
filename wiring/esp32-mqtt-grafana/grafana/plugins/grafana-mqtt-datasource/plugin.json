@@ -1,0 +1,50 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grafana/grafana/main/docs/sources/developers/plugins/plugin.schema.json",
+  "backend": true,
+  "category": "other",
+  "dependencies": {
+    "grafanaDependency": "\u003e=11.0.0",
+    "plugins": []
+  },
+  "executable": "gpx_mqtt",
+  "id": "grafana-mqtt-datasource",
+  "info": {
+    "author": {
+      "name": "Grafana Labs",
+      "url": "https://grafana.com"
+    },
+    "build": {
+      "time": 1724185007562,
+      "repo": "https://github.com/grafana/mqtt-datasource",
+      "branch": "main",
+      "hash": "3ec8fa38bee1de58763e53632744c4109d606583",
+      "build": 88
+    },
+    "description": "MQTT Client Datasource Plugin",
+    "keywords": [
+      "mqtt",
+      "iot",
+      "streaming"
+    ],
+    "links": [
+      {
+        "name": "Website",
+        "url": "https://github.com/grafana/mqtt-datasource"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/grafana/mqtt-backend/blob/master/LICENSE"
+      }
+    ],
+    "logos": {
+      "large": "img/mqtt.svg",
+      "small": "img/mqtt.svg"
+    },
+    "screenshots": [],
+    "updated": "2024-08-20",
+    "version": "1.1.0-beta.2"
+  },
+  "metrics": true,
+  "name": "MQTT",
+  "type": "datasource"
+}
