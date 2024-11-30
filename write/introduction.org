@@ -1,0 +1,49 @@
+#+TITLE: Mixed Greek and English Test
+#+LaTeX_HEADER: \usepackage{fontspec}
+#+LaTeX_HEADER: \setmainfont{Dihjauti}
+#+LaTeX_HEADER: \usepackage{polyglossia}
+#+LaTeX_HEADER: \newfontfamily\greekfont[Script=Greek]{Dihjauti}
+#+LaTeX_HEADER: \newfontfamily\greekfontsf[Script=Greek]{Dihjauti}
+#+LaTeX_HEADER: \setmainlanguage[variant=monotonic]{greek}
+#+LaTeX_HEADER: \setotherlanguage[variant=american]{english}
+#+LaTeX_HEADER: \usepackage{microtype}
+#+BIBLIOGRAPHY: ~/Documents/Bibliography/references.bib
+#+CITE_EXPORT: csl ~/Documents/Bibliography/Styles/apa-numeric-superscript-brackets.csl
+
+* Εισαγωγή
+Η δοκιμή αυτή έχει σκοπό να ελέγξει την σωστή ρύθμιση του περιβάλλοντος.
+
+Μερικά παραδείγματα:
+
+- Κεφαλαία και πεζά γράμματα: ΑΒΓ αβγ.
+- Αγγλικές λέξεις: This is a test.
+- Αριθμοί: 123, 1.23, -123.
+  
+This is a citation [cite:@einstein] to albert einsteins paper.
+
+Ακολουθεί ένα απόσπασμα γραμμένο σε *δύο γλώσσες*:
+- Greek: Αυτό είναι ένα τεστ.
+- English: This is a simple test.
+
+- *Δοκιμή λίστας:*
+    - _Απλό Κείμενο στα Ελληνικά._
+    - Mixed content: Greek (Ελληνικά) and English.
+    - A number list: 1, 2, 3.
+
+* Something Else
+This section includes English text with a mix of Greek:
+
+Testing sentences like: Αυτό είναι ένα τεστ in English.
+
+* Mathematical Example
+A mathematical equation using mixed-language text:
+
+\[
+f(x) = \int_{-\infty}^\infty e^{-x^2} \, dx
+\]
+
+* Conclusion
+Έλεγχος ολοκληρωμένος. Αν όλα λειτουργούν σωστά, βλέπετε Ελληνικά και Αγγλικά μαζί σε σωστή μορφή.
+
+* References
+#+PRINT_BIBLIOGRAPHY:
