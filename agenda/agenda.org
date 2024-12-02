@@ -2,7 +2,7 @@
 #+TITLE: Thesis References
 #+AUTHOR: Chris Liourtas
 
-* Arduino/Other AVR [4/8]
+* Arduino/Other AVR [4/13]
 - [X] <2024-11-06 Wed> [[https://deepbluembedded.com/arduino-port-manipulation-registers-example/?utm_content=cmp-true][Port manipulation on Arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/tutorials/uno-wifi-rev2/uno-wifi-r2-mqtt-device-to-device/][Arduino Uno with MQTT]]   
 - [X] <2024-11-06 Wed> [[https://electronoobs.com/eng_arduino_tut12.php][More on port manipulation]]
@@ -11,7 +11,11 @@
 - [X] <2024-11-18 Mon> [[https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/#3][Connecting to WiFi on ESP32]]
 - [ ] <2024-11-19 Tue> [[https://www.emqx.com/en/blog/esp32-connects-to-the-free-public-mqtt-broker][MQTT on ESP32]]
 - [ ] <2024-11-23 Sat> [[https://randomnerdtutorials.com/esp32-useful-wi-fi-functions-arduino/][ESP32 WiFi]]
-- [ ] <2024-11-25 Mon> [[https://randomnerdtutorials.com/esp32-dual-core-arduino-ide/][Multicore programming in ESP32]] 
+- [ ] <2024-11-25 Mon> [[https://randomnerdtutorials.com/esp32-dual-core-arduino-ide/][Multicore programming in ESP32]]
+- [ ] <2024-11-30 Sat> [[https://docs.espressif.com/projects/esp-idf/en/stable/esp32/api-reference/system/freertos_idf.html][ESP32 FreeRTOS]]
+- [ ] <2024-11-30 Sat> [[https://www.forward.com.au/pfod/ArduinoProgramming/ArduinoStrings/index.html][Arduino Strings]]
+- [ ] <2024-12-01 Sun> [[https://medium.com/@tomw3115/implementing-freertos-solutions-on-esp-32-devices-using-arduino-fa64c5d88605][Implementing FreeRTOS Solutions on ESP32 on Medium]]
+- [ ] <2024-12-01 Sun> [[https://www.freertos.org/Documentation/02-Kernel/07-Books-and-manual/01-RTOS_book][FreeRTOS Manual]]
 * Embedded [1/2]
 - [X] <2024-11-06 Wed> [[https://herndlbauer.com/blog/arduino-uno-bare-metal-programming/][Baremetal on arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/learn/microcontrollers/analog-output/][Pulse Width Modulation]] 
