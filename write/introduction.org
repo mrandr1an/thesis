@@ -1,4 +1,5 @@
 #+TITLE: Mixed Greek and English Test
+#+AUTHOR: Chris Liourtas
 #+LaTeX_HEADER: \usepackage{fontspec}
 #+LaTeX_HEADER: \setmainfont{Dihjauti}
 #+LaTeX_HEADER: \usepackage{polyglossia}
