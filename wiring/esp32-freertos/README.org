@@ -1,2 +1,0 @@
-#+TITLE: Data Visualization via MQTT (Secure Version)
-#+AUTHOR: Chris Liourtas
