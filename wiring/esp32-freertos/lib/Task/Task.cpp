@@ -4,6 +4,11 @@ WiFiClient wifiClient;
 PubSubClient mqttClient(wifiClient);
 
 NetworkState Network_s;
+DeviceData Data = DeviceData
+{
+  &Network_s,
+  -1,
+};
 
 void TaskInitNetwork(void* pvParameters)
 {
@@ -102,6 +107,35 @@ void TaskSenseDistance(void *pvParameters)
     {
         double* distances = HCSR04.measureDistanceCm();
 	ESP_LOGI("HC-SR04","Distance is: %f",distances[0]);
+	Data.distance = distances[0];
+
+	xTaskNotifyGive(TaskPublish_h);
         vTaskDelay(pdMS_TO_TICKS(500));
+    }
+}
+
+void TaskPublish(void *pvParameters)
+{
+    char buffer[256]; // Allocate the buffer once
+    for (;;)
+    {
+        // Wait for a notification indefinitely
+        uint32_t thread_notification = ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+        
+        // Check if got notification
+        if (thread_notification)
+        {
+            // Create and populate JSON document
+            JsonDocument doc;
+            doc["distance"] = Data.distance;
+            doc["rssi"] = Data.nwState->RSSI;
+            doc["local_ip"] = Data.nwState->local_ip;
+            doc["network_name"] = Data.nwState->networkName;
+
+            // Serialize and publish JSON
+            serializeJson(doc, buffer);
+            mqttClient.publish("esp32/data", buffer);
+            ESP_LOGI("MQTT", "Data published");
+        }
     }
 }
