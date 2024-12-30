@@ -57,3 +57,7 @@ flycheck_*.el
 
 mosquitto/
 thingsboard/
+.cache
+build/
+sdkconfig
+sdkconfig.old
