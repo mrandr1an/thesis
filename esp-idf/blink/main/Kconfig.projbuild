@@ -1,0 +1,26 @@
+menu "Example Configuration"
+     config ESP_WIFI_SSID
+     	    string "WiFi SSID"
+	    default "esp_ssid"
+	    help
+		SSID (Network name) for the device to connect to.
+
+     config ESP_WIFI_PASSWORD
+     	    string "WiFi Password"
+	    default "password"
+	    help
+		WiFi Password (WPA or WPA2) for the example to use.
+
+     config ESP_WIFI_CHANNEL
+     	    int "WiFi Channel"
+	    range 1 13
+	    default 1
+	    help
+		WiFi channel for the example to use.
+
+     config ESP_MAX_STA_CONN
+     	    int "Max STA connections"
+	    default 4
+	    help
+		Max number of the STA connections to AP.
+endmenu
