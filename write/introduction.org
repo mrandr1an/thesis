@@ -20,7 +20,8 @@
 - Αγγλικές λέξεις: This is a test.
 - Αριθμοί: 123, 1.23, -123.
   
-This is a citation [cite:@einstein] to albert einsteins paper.
+This is a citation (C-c C-x @) [cite:@einstein] to albert einsteins paper.
+And this is a citation [cite:@Sadeq_2019] to another interesting paper.
 
 Ακολουθεί ένα απόσπασμα γραμμένο σε *δύο γλώσσες*:
 - Greek: Αυτό είναι ένα τεστ.
