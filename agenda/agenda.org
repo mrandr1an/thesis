@@ -2,7 +2,7 @@
 #+TITLE: Thesis References
 #+AUTHOR: Chris Liourtas
 
-* Arduino/Other AVR [4/14]
+* Arduino/Other AVR [4/17]
 - [X] <2024-11-06 Wed> [[https://deepbluembedded.com/arduino-port-manipulation-registers-example/?utm_content=cmp-true][Port manipulation on Arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/tutorials/uno-wifi-rev2/uno-wifi-r2-mqtt-device-to-device/][Arduino Uno with MQTT]]   
 - [X] <2024-11-06 Wed> [[https://electronoobs.com/eng_arduino_tut12.php][More on port manipulation]]
@@ -16,7 +16,10 @@
 - [ ] <2024-11-30 Sat> [[https://www.forward.com.au/pfod/ArduinoProgramming/ArduinoStrings/index.html][Arduino Strings]]
 - [ ] <2024-12-01 Sun> [[https://medium.com/@tomw3115/implementing-freertos-solutions-on-esp-32-devices-using-arduino-fa64c5d88605][Implementing FreeRTOS Solutions on ESP32 on Medium]]
 - [ ] <2024-12-01 Sun> [[https://www.freertos.org/Documentation/02-Kernel/07-Books-and-manual/01-RTOS_book][FreeRTOS Manual]]
+- [ ] <2024-12-19 Thu> [[https://developer.espressif.com/blog/getting-started-with-wifi-on-esp-idf/][Esp-idf Wifi tutorial]]
+- [ ] <2024-12-19 Thu> [[https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c6/api-guides/wifi.html][Esp-idf WiFi manual]]
 - [ ] <2024-12-04 Wed> [[https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/03-Direct-to-task-notifications/01-Task-notifications][FreeRTOS Direct Task Notifications]]
+- [ ] <2024-12-23 Mon> [[https://www.youtube.com/watch?v=V9-cgXag4Ko][Memory on ESP32]]
 * Embedded [1/2]
 - [X] <2024-11-06 Wed> [[https://herndlbauer.com/blog/arduino-uno-bare-metal-programming/][Baremetal on arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/learn/microcontrollers/analog-output/][Pulse Width Modulation]] 
