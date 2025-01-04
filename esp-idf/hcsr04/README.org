@@ -1,0 +1,10 @@
+#+AUTHOR: Chris Liourtas
+#+TITLE: Τελική Αρχιτεκτονική της Υλοποίησης
+
+* Main Thesis Application
+** The Development environment
+*** Components
+*** Workflow
+** Design 
+*** Circuit 
+*** Software Implementation
