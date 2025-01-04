@@ -2,7 +2,7 @@
 #+TITLE: Thesis References
 #+AUTHOR: Chris Liourtas
 
-* Arduino/Other AVR [4/17]
+* Arduino/Other AVR [4/19]
 - [X] <2024-11-06 Wed> [[https://deepbluembedded.com/arduino-port-manipulation-registers-example/?utm_content=cmp-true][Port manipulation on Arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/tutorials/uno-wifi-rev2/uno-wifi-r2-mqtt-device-to-device/][Arduino Uno with MQTT]]   
 - [X] <2024-11-06 Wed> [[https://electronoobs.com/eng_arduino_tut12.php][More on port manipulation]]
@@ -20,6 +20,8 @@
 - [ ] <2024-12-19 Thu> [[https://docs.espressif.com/projects/esp-idf/en/v5.2/esp32c6/api-guides/wifi.html][Esp-idf WiFi manual]]
 - [ ] <2024-12-04 Wed> [[https://www.freertos.org/Documentation/02-Kernel/02-Kernel-features/03-Direct-to-task-notifications/01-Task-notifications][FreeRTOS Direct Task Notifications]]
 - [ ] <2024-12-23 Mon> [[https://www.youtube.com/watch?v=V9-cgXag4Ko][Memory on ESP32]]
+- [ ] <2024-12-30 Mon> [[https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c6/esp32-c6-devkitc-1/user_guide.html][ESP32-C6-DEVKITC-1 ESP-IDF Docs]]
+- [ ] <2024-12-30 Mon> [[https://esp32tutorials.com/hc-sr04-ultrasonic-sensor-esp32-esp-idf/][ESP-IDF Ultrasonic sensor]] 
 * Embedded [1/2]
 - [X] <2024-11-06 Wed> [[https://herndlbauer.com/blog/arduino-uno-bare-metal-programming/][Baremetal on arduino uno]]
 - [ ] <2024-11-16 Sat> [[https://docs.arduino.cc/learn/microcontrollers/analog-output/][Pulse Width Modulation]] 
