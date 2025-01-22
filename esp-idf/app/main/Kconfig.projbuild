@@ -1,28 +1,4 @@
 menu "Example Configuration"
-     config ESP_WIFI_AP_SSID
-     	    string "WiFi Access Point SSID"
-	    default "ESP32C6_SSID"
-	    help
-		SSID (Network name) for the Access Point to create.
-
-     config ESP_WIFI_AP_PASSWORD
-     	    string "WiFi Password"
-	    default "password"
-	    help
-		WiFi Password (WPA or WPA2) for connecting to the AP.
-
-     config ESP_WIFI_AP_MAX_CONNECTIONS
-     	    int "Maximum connections"
-	    default 5
-	    help
-		Maximum allowed stations for connecting to the AP.
-     		
-     config ESP_WIFI_AP_CHANNEL
-     	    int "WiFi Channel"
-     	    range 1 13 
-	    default 1
-	    help
-		WiFi channel for the AP.
 
      config ESP_WIFI_STA_RETRY_ATTEMPTS
      	    int "Station Attempts"
