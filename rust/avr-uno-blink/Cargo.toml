@@ -1,0 +1,13 @@
+[package]
+name = "avr-uno-blink"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+panic-halt = "1.0.0"
+
+[profile.release]
+panic = "abort"
+opt-level = 'z'
+lto = true
+strip = true
