@@ -1,185 +1,155 @@
 #![no_std]
 #![no_main]
-
-use core::net::Ipv4Addr;
-
+use core::{any::Any, net::Ipv4Addr};
 use embassy_executor::Spawner;
-use embassy_net::{tcp::TcpSocket, Runner, StackResources};
+use embassy_net::{Ipv4Cidr, Runner, Stack, StackResources, StaticConfigV4};
 use embassy_time::{Duration, Timer as TaskTimer};
 use esp_backtrace as _;
 use esp_hal::{
     clock::CpuClock,
     rng::Rng,
-    timer::{
-        systimer::SystemTimer,
-        timg::{Timer, TimerGroup},
-    },
+    timer::{systimer::SystemTimer, timg::TimerGroup},
 };
+use esp_hal_dhcp_server::{simple_leaser::SimpleDhcpLeaser, structs::DhcpServerConfig};
 use esp_wifi::{
     wifi::{
-        ClientConfiguration, Configuration, WifiController, WifiDevice, WifiEvent, WifiStaDevice,
-        WifiState,
+        AccessPointConfiguration, ClientConfiguration, Configuration, WifiApDevice, WifiController,
+        WifiDevice, WifiEvent, WifiState,
     },
     EspWifiController,
 };
 use log::info;
-use rust_iot_app::HCSR04;
 use static_cell::StaticCell;
 
-static WIFI_CONTROLLER_CELL: StaticCell<EspWifiController<'static>> = StaticCell::new();
-static NW_STACK_RESOURCES: StaticCell<StackResources<3>> = StaticCell::new();
-const SSID: &str = "Andrian";
-const PASSWORD: &str = "12345678";
-
-#[embassy_executor::task]
-async fn sense_distance(mut hcsr04: HCSR04<'static, Timer>) {
-    loop {
-        let distance = hcsr04.measure_distance();
-        info!("Distance measured: {}cm.", distance);
-        TaskTimer::after_secs(1).await;
-    }
-}
+static WIFI_CONTROLLER: StaticCell<EspWifiController> = StaticCell::new();
+static AP_STACK_RESOURCES: StaticCell<StackResources<3>> = StaticCell::new();
+static STA_STACK_RESOURCES: StaticCell<StackResources<3>> = StaticCell::new();
 
 #[esp_hal_embassy::main]
 async fn main(spawner: Spawner) {
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
 
-    esp_alloc::heap_allocator!(72 * 1024);
-    //Enable logging according to ESP_LOG Environment Variable
-    esp_println::logger::init_logger_from_env();
+    /* BEGIN PERIPHERAL SETUP */
 
-    /* Peripheral Set up */
+    // TIMERS
 
-    /* Timers */
+    // ESP32C6 has two timergroups each having
+    // 1 general purpose timer (gpt) and 1 watch dog timer (wdt)
+    // There is also the system timer with higher percision.
 
-    let systimer = SystemTimer::new(peripherals.SYSTIMER);
+    // We will use the system timer for embassy and the two GPTs
+    // for the sensor and wifi.
 
     let timg0 = TimerGroup::new(peripherals.TIMG0);
-
     let timg1 = TimerGroup::new(peripherals.TIMG1);
+    let timsys = SystemTimer::new(peripherals.SYSTIMER);
 
-    /* RNG (Random Number Generator) */
+    // RNG
+    // Random Number Generator peripheral is used to generate random numbers
+    // and is neccesarry for setting up WiFi.
 
     let mut rng = Rng::new(peripherals.RNG);
 
-    let wifi_controller = &*WIFI_CONTROLLER_CELL
-        .init_with(|| esp_wifi::init(timg0.timer0, rng, peripherals.RADIO_CLK).unwrap());
+    /* END PERIPHERAL SETUP */
 
-    let (wifi_if, controller) =
-        esp_wifi::wifi::new_with_mode(wifi_controller, peripherals.WIFI, WifiStaDevice).unwrap();
+    // Heap == 72 * 1024
+    esp_alloc::heap_allocator!(72 * 1024);
 
-    //Embassy initilization
-    esp_hal_embassy::init(systimer.alarm0);
-    let embasy_net_config = embassy_net::Config::dhcpv4(Default::default());
-    let seed = (rng.random() as u64) << 32 | rng.random() as u64;
+    /* Begin WiFi Setup */
 
-    let stack = NW_STACK_RESOURCES.init_with(StackResources::new);
+    let wifi_controller =
+        &*WIFI_CONTROLLER.init(esp_wifi::init(timg0.timer0, rng, peripherals.RADIO_CLK).unwrap());
 
-    let (stack, runner) = embassy_net::new(wifi_if, embasy_net_config, stack, seed);
+    let ap_resources = AP_STACK_RESOURCES.init(StackResources::new());
+    let sta_resources = STA_STACK_RESOURCES.init(StackResources::new());
 
-    info!("Embassy initialized!");
+    let (wifi_ap, wifi_sta, mut controller) =
+        esp_wifi::wifi::new_ap_sta(wifi_controller, peripherals.WIFI).unwrap();
 
-    let hcsr04 = HCSR04::new(peripherals.GPIO3, peripherals.GPIO2, timg1.timer0);
+    esp_hal_embassy::init(timsys.alarm0);
 
-    spawner.spawn(sense_distance(hcsr04)).unwrap();
+    let ap_config = embassy_net::Config::ipv4_static(StaticConfigV4 {
+        address: Ipv4Cidr::new(Ipv4Addr::new(192, 168, 4, 1), 24),
+        gateway: Some(Ipv4Addr::new(192, 164, 4, 1)),
+        dns_servers: Default::default(),
+    });
+
+    let sta_config = embassy_net::Config::dhcpv4(Default::default());
+
+    let rng_seed = (rng.random() as u64) << 32 | rng.random() as u64;
+
+    let (ap_stack, ap_runner) = embassy_net::new(wifi_ap, ap_config, ap_resources, rng_seed);
+    let (sta_stack, sta_runner) = embassy_net::new(wifi_sta, sta_config, sta_resources, rng_seed);
+
+    let conf = Configuration::Mixed(
+        ClientConfiguration {
+            ..Default::default()
+        },
+        AccessPointConfiguration {
+            ssid: "esp-wifi".try_into().unwrap(),
+            ..Default::default()
+        },
+    );
+
+    controller.set_configuration(&conf).unwrap();
+    spawner.spawn(dhcp_server(ap_stack)).ok();
     spawner.spawn(connection(controller)).ok();
-    spawner.spawn(net_task(runner)).ok();
-    let mut rx_buffer = [0; 4096];
-    let mut tx_buffer = [0; 4096];
+    spawner.spawn(ap_task(ap_runner)).ok();
 
-    loop {
-        if stack.is_link_up() {
-            break;
-        }
-        TaskTimer::after(Duration::from_millis(500)).await;
-    }
+    /* End WiFi Setup */
 
-    info!("Waiting to get IP address...");
-    loop {
-        if let Some(config) = stack.config_v4() {
-            info!("Got IP: {}", config.address);
-            break;
-        }
-        TaskTimer::after(Duration::from_millis(500)).await;
-    }
-
-    loop {
-        TaskTimer::after(Duration::from_millis(1_000)).await;
-
-        let mut socket = TcpSocket::new(stack, &mut rx_buffer, &mut tx_buffer);
-
-        socket.set_timeout(Some(embassy_time::Duration::from_secs(10)));
-
-        let remote_endpoint = (Ipv4Addr::new(142, 250, 185, 115), 80);
-        info!("connecting...");
-        let r = socket.connect(remote_endpoint).await;
-        if let Err(e) = r {
-            info!("connect error: {:?}", e);
-            continue;
-        }
-        info!("connected!");
-        let mut buf = [0; 1024];
-        loop {
-            use embedded_io_async::Write;
-            let r = socket
-                .write_all(b"GET / HTTP/1.0\r\nHost: www.mobile-j.de\r\n\r\n")
-                .await;
-            if let Err(e) = r {
-                info!("write error: {:?}", e);
-                break;
-            }
-            let n = match socket.read(&mut buf).await {
-                Ok(0) => {
-                    info!("read EOF");
-                    break;
-                }
-                Ok(n) => n,
-                Err(e) => {
-                    info!("read error: {:?}", e);
-                    break;
-                }
-            };
-            info!("{}", core::str::from_utf8(&buf[..n]).unwrap());
-        }
-        TaskTimer::after(Duration::from_millis(3000)).await;
-    }
-}
-
-#[embassy_executor::task]
-async fn net_task(mut runner: Runner<'static, WifiDevice<'static, WifiStaDevice>>) {
-    runner.run().await
+    //Enable logging according to ESP_LOG Environment Variable
+    esp_println::logger::init_logger_from_env();
 }
 
 #[embassy_executor::task]
 async fn connection(mut controller: WifiController<'static>) {
     info!("start connection task");
     info!("Device capabilities: {:?}", controller.capabilities());
-    loop {
-        if esp_wifi::wifi::wifi_state() == WifiState::StaConnected {
-            // wait until we're no longer connected
-            controller.wait_for_event(WifiEvent::StaDisconnected).await;
-            TaskTimer::after(Duration::from_millis(5000)).await
-        }
-        if !matches!(controller.is_started(), Ok(true)) {
-            let client_config = Configuration::Client(ClientConfiguration {
-                ssid: SSID.try_into().unwrap(),
-                password: PASSWORD.try_into().unwrap(),
-                ..Default::default()
-            });
-            controller.set_configuration(&client_config).unwrap();
-            info!("Starting wifi");
-            controller.start_async().await.unwrap();
-            info!("Wifi started!");
-        }
-        info!("About to connect...");
 
-        match controller.connect_async().await {
-            Ok(_) => info!("Wifi connected!"),
-            Err(e) => {
-                info!("Failed to connect to wifi: {e:?}");
-                TaskTimer::after(Duration::from_millis(5000)).await
+    info!("Starting wifi");
+    controller.start_async().await.unwrap();
+    info!("Wifi started!");
+
+    loop {
+        match esp_wifi::wifi::ap_state() {
+            WifiState::ApStarted => {
+                info!("Ap has started!");
+                controller.wait_for_event(WifiEvent::ApStaconnected).await;
+                info!("STA connected");
             }
+            WifiState::StaConnected => {
+                info!("Station has connected");
+            }
+            WifiState::Invalid => {
+                info!("Invalid")
+            }
+            e => info!("Other {:#?}", e),
         }
+        TaskTimer::after_millis(500).await;
     }
+}
+
+#[embassy_executor::task]
+async fn dhcp_server(stack: Stack<'static>) {
+    let config = DhcpServerConfig {
+        ip: Ipv4Addr::new(192, 168, 4, 1),
+        lease_time: Duration::from_secs(3600),
+        gateways: &[],
+        subnet: None,
+        dns: &[],
+    };
+
+    let mut leaser = SimpleDhcpLeaser {
+        start: Ipv4Addr::new(192, 168, 4, 50),
+        end: Ipv4Addr::new(192, 168, 4, 200),
+        leases: Default::default(),
+    };
+    let _ = esp_hal_dhcp_server::run_dhcp_server(stack, config, &mut leaser).await;
+}
+
+#[embassy_executor::task]
+async fn ap_task(mut runner: Runner<'static, WifiDevice<'static, WifiApDevice>>) {
+    runner.run().await
 }
