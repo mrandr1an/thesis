@@ -1,0 +1,63 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{graphicx}
+
+% Fonts
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont[Ligatures=TeX]{Libertinus Serif}
+\setmathfont[Ligatures=TeX]{Libertinus Math}
+\setsansfont[Ligatures=TeX]{Libertinus Sans}
+\setmonofont[Ligatures=TeX,Scale=0.95]{Libertinus Mono}
+
+% color
+\usepackage{xcolor}
+
+% Links
+\usepackage{hyperref}
+\hypersetup
+{
+    linktoc=all,
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% Custom Lists
+\usepackage{enumitem}
+
+\usepackage{listings, listings-rust}
+
+% Bibliography
+\usepackage[
+backend=biber,
+style=ieee,
+sorting=ynt
+]{biblatex}
+\bibliography{/home/chris/Documents/Bibliography/references}
+
+
+\usepackage{subfiles} % Best loaded last in the preamble
+
+\newcommand{\figref}[1]{(βλ. \hyperref[#1]{Σχήμα~\ref{#1}})}
+
+\begin{document}
+
+\subfile{frontpage}
+\newpage
+\subfile{toc}
+\newpage
+\subfile{abstract}
+\newpage
+
+\subfile{sections/introduction}
+
+\newpage
+
+\appendix
+
+\newpage
+
+\printbibliography
+
+\end{document}
